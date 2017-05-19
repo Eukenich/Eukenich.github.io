@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="graphApp" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Percolation</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-touch/1.6.4/angular-touch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body data-ng-app="">
+<div class="container" ng-controller="graphController">
+    <h2>Percolation</h2>
+    <div><h4> p (from 0.1 to 0.9):</h4>
+        <input ng-model="delimiter">
+        <button class="btn btn-default btn-xs" ng-click="generateMas()" ng-disabled="delimiter==0">Generate array</button>
+    </div>
+
+    <div style="margin-top: 10px">
+        <input ng-model="arrayHeight"><label>insert array height</label>
+    </div>
+<!--
+    <ul class="chart" style="width:{{width}}px; height:{{height}}px;">
+
+        <div class="y" style="width:{{height}}px;">{{yAxis}}</div>
+        <div class="x">{{xAxis}}</div>
+
+        <li ng-repeat="dot in data" class="dot"
+            style="bottom:{{dot.value / max * height}}px; left:{{($index + 0.5) / data.length * width}}px;"></li>
+
+    </ul>
+-->
+    <!--{{masUl|json}}-->
+    <ul class="chart" style="width:{{width}}px; height:{{height}}px;">
+
+        <div class="y" style="width:{{height}}px;">{{yAxis}}</div>
+        <div class="x">{{xAxis}}</div>
+
+        <li ng-repeat="dot in masUl" class="dot"
+            style=" top:{{dot.yAxis*100}}px; left:{{dot.xAxis*100}}px;"></li>
+
+    </ul>
+
+</div>
+</body>
+</html>
