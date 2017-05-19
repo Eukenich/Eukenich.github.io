@@ -17,25 +17,14 @@
 <div class="container" ng-controller="graphController">
     <h2>Percolation</h2>
     <div><h4> p (from 0.1 to 0.9):</h4>
-        <input ng-model="delimiter">
+        <input type="number" min="0" max="1" step="0.1" ng-model="delimiter">
         <button class="btn btn-default btn-xs" ng-click="arraySize=arrayHeight;generateMas();" ng-disabled="delimiter==0">Generate array</button>
     </div>
 
     <div style="margin-top: 10px">
-        <input ng-model="arrayHeight"><label>insert array length</label>
+        <input type="number" min="2" max="60" ng-model="arrayHeight"><label style="margin-left: 5px"> insert matrice NxN size ( Max: 60 )</label>
     </div>
-<!--
-    <ul class="chart" style="width:{{width}}px; height:{{height}}px;">
 
-        <div class="y" style="width:{{height}}px;">{{yAxis}}</div>
-        <div class="x">{{xAxis}}</div>
-
-        <li ng-repeat="dot in data" class="dot"
-            style="bottom:{{dot.value / max * height}}px; left:{{($index + 0.5) / data.length * width}}px;"></li>
-
-    </ul>
--->
-    <!--{{masUl|json}}-->
     <ul class="chart" style="width:{{width}}px; height:{{height}}px;">
 
         <div class="y" style="width:{{height}}px;"></div>

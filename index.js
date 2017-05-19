@@ -6,7 +6,7 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
 
         $scope.width = 400;
         $scope.height = 400;
-        $scope.delimiter = 0.5
+        $scope.delimiter = 0.6
         $scope.arrayHeight = 50
         $scope.arraySize = 0
         $scope.backgroundColor = 0
@@ -19,6 +19,7 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
             n++
             var masU = [], masUl = [];
             var ulp = $scope.ulp
+            var mathRandom = 0
             for (var i = 0; i < n; i++) {
                 masU[i] = []
                 masUl[i] = []
@@ -26,10 +27,9 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
                     if (!i || !j) {
                         masU[i][j] = 0
                         masUl[i][j] = 0
-
                     }
                     else {
-                        var mathRandom = Math.random()
+                        mathRandom = Math.random()
                         if (mathRandom > $scope.delimiter) {
                             masU[i][j] = 0;
                             masUl[i][j] = 0
@@ -39,7 +39,7 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
                             if (masUl[i - 1][j] && masUl[i][j - 1]) {
                                 masUl[i][j] = Math.min(masUl[i - 1][j], masUl[i][j - 1])
                                 // console.log('this is ulp before splice--->',ulp)
-                                ulp.splice(ulp.indexOf(Math.max(ulp[ulp.indexOf(masUl[i - 1][j])],ulp[ulp.indexOf(masUl[i][j - 1])])), 1, masUl[i][j])
+                                ulp.splice(ulp.indexOf(Math.max(ulp[ulp.indexOf(masUl[i - 1][j])], ulp[ulp.indexOf(masUl[i][j - 1])])), 1, masUl[i][j])
                                 //  console.log('this is ulp after splice--->',ulp)
                             }
                             else {
@@ -61,11 +61,9 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
 
             $scope.masU = masU
 
-           // for (i = 0; i < n; i++) console.log('mas[', i, '] --->', masU[i], 'masUl[', i, ']---->', masUl[i])
-
-
-         //   var oldUlp = ulp
-         //   console.log('this is old ulp --->', oldUlp)
+            // for (i = 0; i < n; i++) console.log('mas[', i, '] --->', masU[i], 'masUl[', i, ']---->', masUl[i])
+            //   var oldUlp = ulp
+            //   console.log('this is old ulp --->', oldUlp)
             for (i = 0; i < ulp.length; i++) {
                 if (ulp[i] < i + 1) {
                     // console.log('ulp[',i+1,']=',ulp[i],'--> ulp[',ulp[i],']=',ulp[ulp[i]-1])
@@ -73,16 +71,16 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
                 }
             }
             $scope.ulp = ulp
-          //  console.log('this is new ulp -->', ulp)
+            //  console.log('this is new ulp -->', ulp)
             var masUln = []
 
             for (i = 0; i < n; i++) {
-                masUln[i]=[]
+                masUln[i] = []
                 for (j = 0; j < n; j++) {
-                    masUln[i][j] = ulp[masUl[i][j]-1]||0
+                    masUln[i][j] = ulp[masUl[i][j] - 1] || 0
                 }
             }
-            for (i = 0; i < n; i++) console.log('mas[', i, '] --->', masU[i], 'masUl[', i, ']---->', masUl[i], ' masULN[', i, ']--->', masUln[i])
+            //   for (i = 0; i < n; i++) console.log('mas[', i, '] --->', masU[i], 'masUl[', i, ']---->', masUl[i], ' masULN[', i, ']--->', masUln[i])
 
             for (i = 1; i < n; i++) {
                 for (j = 1; j < n; j++) {
