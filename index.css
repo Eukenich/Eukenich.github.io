@@ -33,7 +33,7 @@ body {
 /*// Dot chart*/
 
    .dot {
-       background: black;
+      /* background: rgb(0,0,0);*/
        width: 10px;
        height: 10px;
        /*border-radius: 50%;*/

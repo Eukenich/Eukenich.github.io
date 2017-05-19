@@ -7,63 +7,9 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
         $scope.width = 400;
         $scope.height = 400;
         $scope.delimiter = 0.5
-        $scope.data = [
-            {
-                label: 'January',
-                value: 36
-            },
-            {
-                label: 'February',
-                value: 54
-            },
-            {
-                label: 'March', value: 62
-            },
-            {
-                label: 'April',
-                value: 82
-            },
-            {
-                label: 'May',
-                value: 96
-            },
-            {
-                label: 'June',
-                value: 104
-            },
-            {
-                label: 'July',
-                value: 122
-            },
-            {
-                label: 'August',
-                value: 152
-            },
-            {
-                label: 'September',
-                value: 176
-            },
-            {
-                label: 'October',
-                value: 180
-            },
-            {
-                label: 'November',
-                value: 252
-            },
-            {
-                label: 'December',
-                value: 342
-            }
-        ];
         $scope.arrayHeight = 50
-        $scope.arraySize=0
-
-        var arrLength = $scope.data.length;
-        for (var i = 0; i < arrLength; i++) {
-           if ($scope.data[i].value > $scope.max)
-                $scope.max = $scope.data[i].value;
-        }
+        $scope.arraySize = 0
+        $scope.backgroundColor = 0
 
         $scope.generateMas = function () {
             $scope.max = 0;
@@ -92,7 +38,9 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
                             masU[i][j] = 1;
                             if (masUl[i - 1][j] && masUl[i][j - 1]) {
                                 masUl[i][j] = Math.min(masUl[i - 1][j], masUl[i][j - 1])
-                                ulp.splice(1, ulp.indexOf(Math.max.apply(null, ulp)), masUl[i][j])
+                                // console.log('this is ulp before splice--->',ulp)
+                                ulp.splice(ulp.indexOf(Math.max(ulp[ulp.indexOf(masUl[i - 1][j])],ulp[ulp.indexOf(masUl[i][j - 1])])), 1, masUl[i][j])
+                                //  console.log('this is ulp after splice--->',ulp)
                             }
                             else {
                                 if (masUl[i - 1][j] || masUl[i][j - 1]) {
@@ -101,7 +49,9 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
                                 else {
                                     maxUl++
                                     masUl[i][j] = maxUl
+                                    // console.log('this is ulp before--->',ulp)
                                     ulp.push(maxUl)
+                                    // console.log('this is ulp after--->',ulp)
                                 }
                             }
                         }
@@ -111,14 +61,36 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
 
             $scope.masU = masU
 
-  /*          for (i = 0; i < n; i++)
-                console.log('mas[', i, '] --->', masU[i], 'masUl[', i, ']---->', masUl[i])*/
+           // for (i = 0; i < n; i++) console.log('mas[', i, '] --->', masU[i], 'masUl[', i, ']---->', masUl[i])
+
+
+         //   var oldUlp = ulp
+         //   console.log('this is old ulp --->', oldUlp)
+            for (i = 0; i < ulp.length; i++) {
+                if (ulp[i] < i + 1) {
+                    // console.log('ulp[',i+1,']=',ulp[i],'--> ulp[',ulp[i],']=',ulp[ulp[i]-1])
+                    ulp[i] = ulp[ulp[i] - 1]
+                }
+            }
+            $scope.ulp = ulp
+          //  console.log('this is new ulp -->', ulp)
+            var masUln = []
+
+            for (i = 0; i < n; i++) {
+                masUln[i]=[]
+                for (j = 0; j < n; j++) {
+                    masUln[i][j] = ulp[masUl[i][j]-1]||0
+                }
+            }
+            for (i = 0; i < n; i++) console.log('mas[', i, '] --->', masU[i], 'masUl[', i, ']---->', masUl[i], ' masULN[', i, ']--->', masUln[i])
+
             for (i = 1; i < n; i++) {
                 for (j = 1; j < n; j++) {
-                    if (masUl[i][j]) {
+                    if (masUln[i][j]) {
                         var dot = {}
                         dot.xAxis = j
                         dot.yAxis = i
+                        dot.backgroundColor = masUln[i][j]
                         $scope.masUl.push(dot)
                     }
                 }
