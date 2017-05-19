@@ -4,11 +4,9 @@
 angular.module('graphApp', ['ui.bootstrap.modal'])
     .controller('graphController', function ($scope) {
 
-        $scope.width = 600;
-        $scope.height = 350;
-        /*  $scope.yAxis = 'Sales';
-         $scope.xAxis = '2014';*/
-        $scope.delimiter = 0
+        $scope.width = 400;
+        $scope.height = 400;
+        $scope.delimiter = 0.5
         $scope.data = [
             {
                 label: 'January',
@@ -58,23 +56,20 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
                 value: 342
             }
         ];
-        $scope.arrayHeight = 3
-        // Find Maximum X & Y Axis Values - this is used to position the data as a percentage of the maximum
-
+        $scope.arrayHeight = 50
+        $scope.arraySize=0
 
         var arrLength = $scope.data.length;
         for (var i = 0; i < arrLength; i++) {
-            // Find Maximum X Axis Value
-            if ($scope.data[i].value > $scope.max)
+           if ($scope.data[i].value > $scope.max)
                 $scope.max = $scope.data[i].value;
         }
 
-        //console.log('this is ulp -->',ulp.indexOf('2'))
         $scope.generateMas = function () {
             $scope.max = 0;
             $scope.ulp = []
             $scope.masUl = []
-            var n = $scope.arrayHeight, maxUl = 0;
+            var n = $scope.arraySize, maxUl = 0;
             n++
             var masU = [], masUl = [];
             var ulp = $scope.ulp
@@ -97,9 +92,7 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
                             masU[i][j] = 1;
                             if (masUl[i - 1][j] && masUl[i][j - 1]) {
                                 masUl[i][j] = Math.min(masUl[i - 1][j], masUl[i][j - 1])
-                             //   console.log('ulp before splice -->', ulp)
                                 ulp.splice(1, ulp.indexOf(Math.max.apply(null, ulp)), masUl[i][j])
-                               // console.log('ulp after splice --->', ulp)
                             }
                             else {
                                 if (masUl[i - 1][j] || masUl[i][j - 1]) {
@@ -118,26 +111,18 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
 
             $scope.masU = masU
 
-            for (i = 0; i < n; i++)
-                console.log('mas[', i, '] --->', masU[i], 'masUl[', i, ']---->', masUl[i])
-            //  $scope.masUl = masUl
-
+  /*          for (i = 0; i < n; i++)
+                console.log('mas[', i, '] --->', masU[i], 'masUl[', i, ']---->', masUl[i])*/
             for (i = 1; i < n; i++) {
                 for (j = 1; j < n; j++) {
-
                     if (masUl[i][j]) {
                         var dot = {}
-                       // console.log('this is masUl[',i,'][,',j,'] --> ',masUl[i][j])
-
                         dot.xAxis = j
                         dot.yAxis = i
                         $scope.masUl.push(dot)
                     }
-
                 }
             }
-            //console.log('this is ulp -->',$scope.ulp.indexOf('2'))
-            //console.log('this is masUl dots ---> ', $scope.masUl)
         }
 
 

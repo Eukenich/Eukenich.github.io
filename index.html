@@ -18,11 +18,11 @@
     <h2>Percolation</h2>
     <div><h4> p (from 0.1 to 0.9):</h4>
         <input ng-model="delimiter">
-        <button class="btn btn-default btn-xs" ng-click="generateMas()" ng-disabled="delimiter==0">Generate array</button>
+        <button class="btn btn-default btn-xs" ng-click="arraySize=arrayHeight;generateMas();" ng-disabled="delimiter==0">Generate array</button>
     </div>
 
     <div style="margin-top: 10px">
-        <input ng-model="arrayHeight"><label>insert array height</label>
+        <input ng-model="arrayHeight"><label>insert array length</label>
     </div>
 <!--
     <ul class="chart" style="width:{{width}}px; height:{{height}}px;">
@@ -38,11 +38,11 @@
     <!--{{masUl|json}}-->
     <ul class="chart" style="width:{{width}}px; height:{{height}}px;">
 
-        <div class="y" style="width:{{height}}px;">{{yAxis}}</div>
-        <div class="x">{{xAxis}}</div>
+        <div class="y" style="width:{{height}}px;"></div>
+        <div class="x"></div>
 
         <li ng-repeat="dot in masUl" class="dot"
-            style=" top:{{dot.yAxis*100}}px; left:{{dot.xAxis*100}}px;"></li>
+            style=" bottom:{{dot.yAxis*height/arraySize*0.9}}px; left:{{dot.xAxis*height/arraySize*0.9}}px;"></li>
 
     </ul>
 
