@@ -4,8 +4,8 @@
 angular.module('graphApp', ['ui.bootstrap.modal'])
     .controller('graphController', function ($scope) {
 
-        $scope.width = 400;
-        $scope.height = 400;
+        $scope.width = 288;
+        $scope.height = 300;
         $scope.delimiter = 0.6
         $scope.arrayHeight = 50
         $scope.arraySize = 0
@@ -31,7 +31,7 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
                     else {
                         mathRandom = Math.random()
                         if (mathRandom > $scope.delimiter) {
-                            masU[i][j] = 0;
+                            masU[i][j] = 0
                             masUl[i][j] = 0
                         }
                         else {
@@ -39,7 +39,8 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
                             if (masUl[i - 1][j] && masUl[i][j - 1]) {
                                 masUl[i][j] = Math.min(masUl[i - 1][j], masUl[i][j - 1])
                                 // console.log('this is ulp before splice--->',ulp)
-                                ulp.splice(ulp.indexOf(Math.max(ulp[ulp.indexOf(masUl[i - 1][j])], ulp[ulp.indexOf(masUl[i][j - 1])])), 1, masUl[i][j])
+                                ulp.splice(ulp.indexOf(Math.max(ulp[ulp.indexOf(masUl[i - 1][j])],
+                                    ulp[ulp.indexOf(masUl[i][j - 1])])), 1, masUl[i][j])
                                 //  console.log('this is ulp after splice--->',ulp)
                             }
                             else {
@@ -61,9 +62,9 @@ angular.module('graphApp', ['ui.bootstrap.modal'])
 
             $scope.masU = masU
 
-            // for (i = 0; i < n; i++) console.log('mas[', i, '] --->', masU[i], 'masUl[', i, ']---->', masUl[i])
-            //   var oldUlp = ulp
-            //   console.log('this is old ulp --->', oldUlp)
+            /* for (i = 0; i < n; i++) console.log('mas[', i, '] --->', masU[i], 'masUl[', i, ']---->', masUl[i])
+               var oldUlp = ulp
+               console.log('this is old ulp --->', oldUlp)*/
             for (i = 0; i < ulp.length; i++) {
                 if (ulp[i] < i + 1) {
                     // console.log('ulp[',i+1,']=',ulp[i],'--> ulp[',ulp[i],']=',ulp[ulp[i]-1])

@@ -21,20 +21,17 @@
         <button class="btn btn-default btn-xs" ng-click="arraySize=arrayHeight;generateMas();" ng-disabled="delimiter==0">Generate array</button>
     </div>
 
-    <div style="margin-top: 10px">
+    <!--<div style="margin-top: 10px">
         <input type="number" min="2" max="60" ng-model="arrayHeight"><label style="margin-left: 5px"> insert matrice NxN size ( Max: 60 )</label>
-    </div>
+    </div>-->
 
-    <ul class="chart" style="width:{{width}}px; height:{{height}}px;">
-
-        <div class="y" style="width:{{height}}px;"></div>
+    <ul class="chart" style="width:{{width}}px; height:{{height-10}}px;">
+        <div class="y" style="width:{{height}}px"></div>
         <div class="x"></div>
-
         <li ng-repeat="dot in masUl" class="dot"
-            style="background:rgb({{dot.backgroundColor}},{{dot.backgroundColor}},{{dot.backgroundColor}}) ; bottom:{{dot.yAxis*height/arraySize*0.9}}px; left:{{dot.xAxis*height/arraySize*0.9}}px;"></li>
-
+            style="background:rgb({{dot.backgroundColor}},{{dot.backgroundColor}},{{dot.backgroundColor}});
+             bottom:{{dot.yAxis*height/arraySize*0.9}}px; left:{{dot.xAxis*height/arraySize*0.9}}px"></li>
     </ul>
-
 </div>
 </body>
 </html>
